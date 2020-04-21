@@ -163,20 +163,3 @@ await styx.set({ termType: "NamedNode", value: "http://example.com/d1" }, [
 ```
 
 Note that the keys that datasets are inserted under are IRI RDF _terms_, so they're represented `{ "@id": "http://example.com/d1" }` or `{ termType: "NamedNode", value: "http://example.com/d1" }`, not as strings.
-
-### Getting, setting, and deleting
-
-```typescript
-import Styx from "styx-client"
-
-// The Styx class constructor takes a string hostname
-const styx = new Styx("localhost:8086")
-
-// There are two query interfaces: one using @rdfjs/data-model types,
-// and one using JSON-LD objects.
-
-const iter = await styx.queryJsonLd({
-	"@context": { "@vocab": "http://schema.org" },
-	name: {},
-})
-```
