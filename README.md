@@ -8,7 +8,7 @@ import Styx from "styx-client"
 const styx = new Styx("localhost:8086")
 ```
 
-[Styx] is an experimental RDF database, written in Go. It works like a key/value store, where the keys are RDF IRI terms and the values are RDF Datasets, and it also exposes a query interface for iterating over all the subgraphs (across all datasets) that match a given pattern.
+[Styx](https://github.com/underlay/styx) is an experimental RDF database, written in Go. It works like a key/value store, where the keys are RDF IRI terms and the values are RDF Datasets, and it also exposes a query interface for iterating over all the subgraphs (across all datasets) that match a given pattern.
 
 For example, you can set two datasets like
 
