@@ -1,0 +1,32 @@
+{
+	"name": "styx-client",
+	"version": "0.1.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "webpack --mode production",
+		"watch": "webpack --mode development --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/underlay/js-styx-client.git"
+	},
+	"author": "Joel Gustafson",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/underlay/js-styx-client/issues"
+	},
+	"homepage": "https://github.com/underlay/js-styx-client#readme",
+	"dependencies": {
+		"@rdfjs/data-model": "^1.1.2",
+		"@rdfjs/dataset": "^1.0.1",
+		"@types/jsonld": "^1.5.1",
+		"@types/rdf-js": "^2.0.12",
+		"@types/uuid": "^7.0.2",
+		"event-iterator": "^1.2.0",
+		"jsonld": "^3.1.0",
+		"jsonrpc-lite": "^2.1.0",
+		"uuid": "^7.0.3"
+	}
+}
