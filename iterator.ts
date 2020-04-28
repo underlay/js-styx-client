@@ -66,4 +66,16 @@ export default class I<
 		const params = Array.isArray(index) ? [index.map(getJson)] : []
 		await this.#rpc.call("seek", params)
 	}
+
+	async prov(): Promise<R[][]> {
+		if (this.#domain === null) return
+		const prov = await this.#rpc.call("prov", [])
+		return Array.isArray(prov)
+			? prov.map((quad) =>
+					Array.isArray(quad)
+						? quad.map((value) => this.#getValue(value))
+						: null
+			  )
+			: null
+	}
 }

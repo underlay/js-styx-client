@@ -11,4 +11,5 @@ export default class I<T extends JsonLdId | Variable | BlankNode, R extends Json
     entries(): IterableIterator<[T, R]>;
     next(node?: T): Promise<IteratorResult<Map<T, R>, null>>;
     seek(index?: (JsonLdTerm | Term)[]): Promise<void>;
+    prov(): Promise<R[][]>;
 }
