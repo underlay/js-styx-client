@@ -20,7 +20,8 @@ import {
 	quadFromJSON,
 } from "./util"
 
-import I from "./iterator"
+// import I from "./iterator"
+import I from "js-query-rpc"
 
 export default class Styx {
 	public host: string

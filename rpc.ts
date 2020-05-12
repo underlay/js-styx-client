@@ -1,6 +1,12 @@
 import jsonrpc, { RpcStatusType, Defined } from "jsonrpc-lite"
 import EventIterator, { subscribe } from "event-iterator/lib/dom"
 
+function isReturnResult<T, R>(
+	result: IteratorResult<T, R>
+): result is IteratorReturnResult<R> {
+	return result.done
+}
+
 export default class RPC {
 	#iterator: AsyncIterator<MessageEvent>
 	#socket: WebSocket
@@ -25,30 +31,30 @@ export default class RPC {
 		const message = JSON.stringify(request)
 		this.#socket.send(message)
 		const response = await this.#iterator.next()
-		if (response.done) {
+		if (isReturnResult(response)) {
 			console.error(response.value)
 			throw new Error("Iterator ended unexpectedly")
-		}
+		} else {
+			const result = jsonrpc.parse(response.value.data)
+			if (Array.isArray(result)) {
+				console.error(result)
+				throw new Error("Unexpected batch result")
+			}
 
-		const result = jsonrpc.parse(response.value.data)
-		if (Array.isArray(result)) {
-			console.error(result)
-			throw new Error("Unexpected batch result")
-		}
-
-		if (result.type === RpcStatusType.notification) {
-			console.log(result.payload)
-		} else if (result.type === RpcStatusType.invalid) {
-			console.error(result.payload)
-			throw new Error("Invalid RPC message")
-		} else if (result.type === RpcStatusType.error) {
-			console.error(result.payload)
-			throw new Error("Recieved RPC error")
-		} else if (result.type === RpcStatusType.request) {
-			console.error(result.payload)
-			throw new Error("Unexpected request")
-		} else if (result.type === RpcStatusType.success) {
-			return result.payload.result
+			if (result.type === RpcStatusType.notification) {
+				console.log(result.payload)
+			} else if (result.type === RpcStatusType.invalid) {
+				console.error(result.payload)
+				throw new Error("Invalid RPC message")
+			} else if (result.type === RpcStatusType.error) {
+				console.error(result.payload)
+				throw new Error("Recieved RPC error")
+			} else if (result.type === RpcStatusType.request) {
+				console.error(result.payload)
+				throw new Error("Unexpected request")
+			} else if (result.type === RpcStatusType.success) {
+				return result.payload.result
+			}
 		}
 	}
 }

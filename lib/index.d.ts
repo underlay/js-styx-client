@@ -1,7 +1,7 @@
 import { JsonLd } from "jsonld/jsonld-spec";
 import { Variable, Quad, DatasetCore, Term, BlankNode } from "rdf-js";
 import { N3Term, JsonLdId, JsonLdTerm } from "./util";
-import I from "./iterator";
+import I from "js-query-rpc";
 export default class Styx {
     #private;
     host: string;
